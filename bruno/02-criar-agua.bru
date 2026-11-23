@@ -1,0 +1,33 @@
+meta {
+  name: 02 - Criar água
+  type: http
+  seq: 2
+}
+
+post {
+  url: {{baseUrl}}/api/aguas
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "titulo": "Água mineral sem gás"
+  }
+}
+
+script:post-response {
+  // guarda o identificador devolvido pela API para as próximas requisições
+  bru.setVar("aguaId", res.body.id);
+}
+
+assert {
+  res.status: eq 201
+}
+
+tests {
+  test("devolve a água criada com identificador", function() {
+    expect(res.body.id).to.be.a("number");
+    expect(res.body.titulo).to.equal("Água mineral sem gás");
+  });
+}

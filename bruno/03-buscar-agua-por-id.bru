@@ -1,0 +1,22 @@
+meta {
+  name: 03 - Buscar água por id
+  type: http
+  seq: 3
+}
+
+get {
+  url: {{baseUrl}}/api/aguas/{{aguaId}}
+  body: none
+  auth: none
+}
+
+assert {
+  res.status: eq 200
+}
+
+tests {
+  test("devolve os mesmos dados criados", function() {
+    expect(res.body.id).to.equal(bru.getVar("aguaId"));
+    expect(res.body.titulo).to.equal("Água mineral sem gás");
+  });
+}

@@ -1,0 +1,33 @@
+meta {
+  name: 08 - Criar água para testar persistência
+  type: http
+  seq: 8
+}
+
+post {
+  url: {{baseUrl}}/api/aguas
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "titulo": "Água de nascente"
+  }
+}
+
+script:post-response {
+  // este registro NÃO será excluído: serve para provar a persistência após reiniciar a API
+  bru.setVar("aguaIdPersistencia", res.body.id);
+}
+
+assert {
+  res.status: eq 201
+}
+
+tests {
+  test("devolve a água criada com identificador", function() {
+    expect(res.body.id).to.be.a("number");
+    expect(res.body.titulo).to.equal("Água de nascente");
+  });
+}

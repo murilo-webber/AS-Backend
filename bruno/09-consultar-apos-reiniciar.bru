@@ -1,0 +1,23 @@
+meta {
+  name: 09 - Consultar o mesmo id após reiniciar a API
+  type: http
+  seq: 9
+}
+
+get {
+  url: {{baseUrl}}/api/aguas/{{aguaIdPersistencia}}
+  body: none
+  auth: none
+}
+
+assert {
+  res.status: eq 200
+}
+
+tests {
+  test("o registro continua no banco", function() {
+    // o id devolvido tem de ser o mesmo que foi pedido na URL (vale com variável da sessão ou com --env-var)
+    expect(res.body.id).to.equal(Number(req.getUrl().split("/").pop()));
+    expect(res.body.titulo).to.equal("Água de nascente");
+  });
+}

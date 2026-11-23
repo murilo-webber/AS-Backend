@@ -1,0 +1,21 @@
+meta {
+  name: 05 - Buscar após atualizar (confirma o PUT)
+  type: http
+  seq: 5
+}
+
+get {
+  url: {{baseUrl}}/api/aguas/{{aguaId}}
+  body: none
+  auth: none
+}
+
+assert {
+  res.status: eq 200
+}
+
+tests {
+  test("o banco guardou os dados atualizados", function() {
+    expect(res.body.titulo).to.equal("Água mineral com gás");
+  });
+}

@@ -1,0 +1,21 @@
+meta {
+  name: 01 - Listar águas
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{baseUrl}}/api/aguas
+  body: none
+  auth: none
+}
+
+assert {
+  res.status: eq 200
+}
+
+tests {
+  test("retorna uma lista", function() {
+    expect(res.body).to.be.an("array");
+  });
+}

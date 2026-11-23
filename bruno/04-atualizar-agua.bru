@@ -1,0 +1,28 @@
+meta {
+  name: 04 - Atualizar água
+  type: http
+  seq: 4
+}
+
+put {
+  url: {{baseUrl}}/api/aguas/{{aguaId}}
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "titulo": "Água mineral com gás"
+  }
+}
+
+assert {
+  res.status: eq 200
+}
+
+tests {
+  test("devolve os dados atualizados", function() {
+    expect(res.body.id).to.equal(bru.getVar("aguaId"));
+    expect(res.body.titulo).to.equal("Água mineral com gás");
+  });
+}

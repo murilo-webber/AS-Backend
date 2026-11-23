@@ -1,31 +1,3 @@
-# Apiaguas — CRUD de Águas com EF Core + SQLite
-
-API ASP.NET Core (.NET 10) com persistência em SQLite via Entity Framework Core, interface integrada na mesma origem e Collection de testes no Bruno.
-
-## Tema e objetivo
-Cadastro de **águas** (campo `titulo`).
-
-Objetivo desta versão (AS): consolidar o projeto das avaliações AP1 e AP2 com o código **organizado por responsabilidade** — entidade em `Models/`, tipo de entrada em `Dtos/` e contexto em `Data/` — mantendo o `Program.cs` apenas com inicialização, middleware e rotas, e demonstrar o funcionamento com a Collection do Bruno.
-
-## Requisitos
-- .NET 10 SDK
-- [Bruno](https://www.usebruno.com/) (para abrir a Collection em `bruno/`)
-
-## Preparação e execução
-
-```bash
-dotnet restore
-dotnet build
-dotnet run
-```
-
-Execute os comandos na pasta do projeto (onde está o `Apiaguas.csproj`). A API sobe em **http://localhost:5162** (perfil `http` do `Properties/launchSettings.json`) e a interface abre na mesma porta.
-
-### Banco de dados
-O projeto **não usa migrations**. O banco SQLite `aguas.db` é criado automaticamente na primeira execução por `db.Database.EnsureCreated()` (no `Program.cs`), na pasta de onde a aplicação é executada. Os dados ficam gravados nesse arquivo e continuam disponíveis depois de reiniciar a API. Para começar do zero, pare a API e apague o `aguas.db`.
-
-> Inicie sempre a API a partir da mesma pasta: o caminho do banco é relativo (`Data Source=aguas.db`), e em outra pasta seria criado um banco novo e vazio.
-
 ## Estrutura de pastas
 
 ```
@@ -127,19 +99,9 @@ O identificador usado nas requisições vem sempre da resposta do POST (variáve
 
 Todas as requisições têm *assert* do status HTTP esperado e, quando há corpo na resposta, *tests* que conferem os dados. Para executar tudo de uma vez, use o **Runner** do Bruno (clique com o botão direito na Collection → **Run**) ou, pela linha de comando:
 
-```bash
-npm install -g @usebruno/cli
-cd bruno
-bru run --env local
-```
 
 ## Vídeo de demonstração — AS
-<!-- Cole aqui o link público do vídeo da AS -->
-**[Cole aqui o link do vídeo da AS]**
-
-## Vídeo de demonstração — AP2
-<!-- Cole aqui o link público do vídeo -->
-**[Link do vídeo]**
+https://drive.google.com/file/d/1j8NclFpV6b0HFK8CESQ2g2tNxFer35Rb/view?usp=sharing
 
 ## Observações
 - Não versionar `bin/`, `obj/` nem o arquivo `aguas.db` (já listados no `.gitignore`).
